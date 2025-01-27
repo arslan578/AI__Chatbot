@@ -1,12 +1,26 @@
 <h1 align="center" id="title">AI Chatbot with Django</h1>
-</br>
 
 <p id="description" align="center">Django | Gemini API | AI Studio</p>
 
-<h2>🫦 Medium Link</h2>
-<p>1. <a href="https://thehormat.medium.com/ai-chatbot-with-django-c45d34b73051">Here is a great blog post for this great repo</a></p>
+<h2>🛜 Project Setup Instructions</h2>
 
-</br>
+### Prerequisites
+- Python 3.10.12
+- Poetry (Python package manager)
+- PostgreSQL
+- Google Gemini API key
+
+### 1. Clone the Repository
+```bash
+git clone git@github.com:TheHormat/AI__Chatbot.git
+cd AI__Chatbot
+```
+
+### 1. Install Poetry
+If you haven't installed Poetry yet, install it by running:
+```bash
+curl -sSL https://install.python-poetry.org | python3 -
+```
 
 <h2>🛜 To make it work: </h2>
 </br>

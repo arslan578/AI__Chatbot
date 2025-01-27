@@ -50,6 +50,7 @@ atlassian-ide-plugin.xml
 # Python #
 *.py[cod]
 *$py.class
+*.so
 
 # Distribution / packaging
 .Python build/
@@ -100,10 +101,9 @@ celerybeat-schedule.*
 
 # Environments
 .venv
-.env
-env/
 venv/
 ENV/
+env/
 env.bak/
 venv.bak/
 
@@ -137,3 +137,21 @@ GitHub.sublime-settings
 !.vscode/launch.json
 !.vscode/extensions.json
 .history
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Database
+*.sqlite3
+*.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+Thumbs.db

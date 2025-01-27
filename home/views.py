@@ -3,12 +3,13 @@ import google.generativeai as genai
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+from django.conf import settings
 
 
 def chatbot_view(request):
     return render(request, 'index.html')
 
-genai.configure(api_key="YOUR_API_KEY")
+genai.configure(api_key=settings.GEMINI_API_KEY)
 
 generation_config = {
     "temperature": 1,

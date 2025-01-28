@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "home",
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [
@@ -64,6 +65,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "core.urls"
+
+AUTH_USER_MODEL = 'home.CustomUser'
+
+LOGIN_URL = 'home:login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home:login'
 
 TEMPLATES = [
     {

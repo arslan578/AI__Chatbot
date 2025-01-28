@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "home",
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -145,3 +147,17 @@ REQUIRED_ENV_VARS = [
 
 for var in REQUIRED_ENV_VARS:
     get_env_variable(var)
+
+
+AUTH_USER_MODEL = 'home.CustomUser'
+
+# Login URL
+LOGIN_URL = 'home:login'
+LOGIN_REDIRECT_URL = 'dashboard'
+
+# Message settings
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

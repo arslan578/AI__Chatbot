@@ -1,16 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import google.generativeai as genai
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.conf import settings
+from .forms import UserRegistrationForm, LoginForm
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
+from django.contrib.auth import login, logout, authenticate
+
 
 
 def chatbot_view(request):
     return render(request, 'index.html')
 
 genai.configure(api_key=settings.GEMINI_API_KEY)
-
+ 
 generation_config = {
     "temperature": 1,
     "top_p": 0.95,
@@ -36,3 +42,52 @@ def ask_question(request):
     response = chat_session.send_message(question)
 
     return JsonResponse({"answer": response.text})
+
+
+def signup_view(request):
+    # Redirect if user is already authenticated
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+        
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, 'Registration successful. Please log in.')
+            return redirect('/login/')
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = UserRegistrationForm()
+    
+    return render(request, 'accounts/signup.html', {'form': form})
+
+def login_view(request):
+    # Redirect if user is already authenticated
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+        
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            
+            if user is not None:
+                login(request, user)
+                messages.success(request, f'Welcome back, {username}!')
+                return redirect('/')
+            else:
+                messages.error(request, 'Invalid username or password.')
+    else:
+        form = LoginForm()
+    
+    return render(request, 'accounts/login.html', {'form': form})
+
+@login_required
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'You have been logged out successfully.')
+    return redirect('login')
+

@@ -123,4 +123,81 @@ These changes provide:
 4. Security best practices
 5. Troubleshooting guidance
 
-The existing settings.py file already handles the environment variables correctly, so no changes are needed there.
+
+
+The existing settings.py file already handles the environment variables correctly, so no changes are needed there
+
+
+<h2>🐳 Docker Setup</h2>
+
+### Prerequisites
+- Docker
+- Docker Compose
+
+### 1. Docker Configuration
+1. Copy the environment file:
+```bash
+cp .env.example .env
+```
+
+2. Update the `.env` file with your settings
+
+### 2. Build and Start the Project
+```bash
+docker-compose up --build
+```
+
+### 3. Create Superuser
+With the containers running, execute:
+```bash
+docker-compose exec web python manage.py createsuperuser
+```
+
+### 4. Accessing the Application
+- Main application: http://localhost:8000
+- Admin interface: http://localhost:8000/admin
+
+### 5. Common Docker Commands
+- Start containers: `docker-compose up`
+- Stop containers: `docker-compose down`
+- View logs: `docker-compose logs`
+- Run migrations: `docker-compose exec web python manage.py migrate`
+- Create migrations: `docker-compose exec web python manage.py makemigrations`
+- Open shell: `docker-compose exec web python manage.py shell`
+
+### 6. Troubleshooting Docker Setup
+- Ensure Docker daemon is running
+- Check logs with `docker-compose logs`
+- Rebuild containers if dependencies change: `docker-compose up --build`
+- Clear volumes if needed: `docker-compose down -v`
+
+// ... rest of existing content ...
+```
+
+7. Create `requirements.txt` from your Poetry dependencies:
+
+```bash
+poetry export -f requirements.txt --output requirements.txt --without-hashes
+```
+
+To use this Docker setup:
+
+1. Copy `.env.example` to `.env` and update the values
+2. Build and start the containers:
+```bash
+docker-compose up --build
+```
+3. The application will be available at http://localhost:8000
+4. Database migrations will run automatically on startup
+5. Create a superuser using the environment variables or manually with:
+```bash
+docker-compose exec web python manage.py createsuperuser
+```
+
+The setup includes:
+- Python 3.10 base image
+- PostgreSQL database
+- Volume mounts for code, static files, and database
+- Automatic migrations on startup
+- Environment variable configuration
+- Development-ready configuration

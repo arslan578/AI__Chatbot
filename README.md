@@ -137,3 +137,115 @@ You can generate a new Django secret key using Python:
 python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
 ```
 Copy the output and paste it as your `SECRET_KEY` in the `.env` file.
+
+
+
+## Docker Setup
+
+### Prerequisites
+- Docker
+- Docker Compose
+
+### Getting Started
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd AI__Chatbot
+```
+
+2. Create environment file:
+```bash
+cp .env.example .env
+```
+
+3. Build and start the containers:
+```bash
+docker-compose up --build
+```
+
+4. Create a superuser:
+```bash
+docker-compose exec web python manage.py createsuperuser
+```
+
+### Development Commands
+
+- Start the services:
+```bash
+docker-compose up
+```
+
+- Stop the services:
+```bash
+docker-compose down
+```
+
+- Run migrations:
+```bash
+docker-compose exec web python manage.py migrate
+```
+
+- Collect static files:
+```bash
+docker-compose exec web python manage.py collectstatic
+```
+
+### Accessing the Application
+
+- Main application: http://localhost:8000
+- Admin interface: http://localhost:8000/admin
+
+### Database Management
+
+- Create database backup:
+```bash
+docker-compose exec db pg_dump -U postgres ai_chatbot > backup.sql
+```
+
+- Restore database:
+```bash
+docker-compose exec db psql -U postgres ai_chatbot < backup.sql
+```
+```
+
+Instructions for using the Docker setup:
+
+1. **Initial Setup**:
+   ```bash
+   # Copy environment file
+   cp .env.example .env
+   
+   # Build and start containers
+   docker-compose up --build
+   ```
+
+2. **Running Migrations**:
+   ```bash
+   docker-compose exec web python manage.py migrate
+   ```
+
+3. **Creating Superuser**:
+   ```bash
+   docker-compose exec web python manage.py createsuperuser
+   ```
+
+4. **Accessing the Application**:
+   - Web application: http://localhost:8000
+   - Admin interface: http://localhost:8000/admin
+
+Additional Notes:
+1. Make sure to update the `SECRET_KEY` in your `.env` file with a secure key
+2. The PostgreSQL data will persist in a Docker volume
+3. Static files are served from a Docker volume
+4. The development server will auto-reload when code changes are detected
+5. You might need to adjust the `ALLOWED_HOSTS` setting in your Django settings to match your deployment environment
+
+Remember to:
+1. Add `requirements.txt` to your project if you're using Poetry:
+   ```bash
+   poetry export -f requirements.txt --output requirements.txt --without-hashes
+   ```
+2. Update your Django settings to use the environment variables for database configuration
+3. Add the Docker-related files to version control
+4. Ensure your `.gitignore` includes `.env` and other sensitive files

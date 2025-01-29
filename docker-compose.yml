@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: >
+      sh -c "poetry run python manage.py wait_for_db &&
+             poetry run python manage.py migrate &&
+             poetry run python manage.py collectstatic --noinput &&
+             poetry run python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+      - static_volume:/app/staticfiles
+      - poetry_cache:/opt/.cache  # Add Poetry cache volume
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:
+  static_volume:
+  poetry_cache:  # Add Poetry cache volume

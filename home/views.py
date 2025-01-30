@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.conf import settings
-from .forms import UserRegistrationForm, LoginForm
+from .forms import UserRegistrationForm, LoginForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
@@ -91,3 +91,22 @@ def logout_view(request):
     messages.success(request, 'You have been logged out successfully.')
     return redirect('login')
 
+
+
+@login_required
+def profile_update(request):
+    try:
+        if request.method == 'POST':
+            form = UserProfileForm(request.POST, request.FILES, instance=request.user)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Your profile has been updated successfully!')
+                return redirect('home:profile_update')  # Add namespace here
+        else:
+            form = UserProfileForm(instance=request.user)
+        
+        return render(request, 'home/profile_update.html', {'form': form})
+    except Exception as e:
+        print(f"Error in profile_update view: {str(e)}")
+        messages.error(request, 'An error occurred while updating your profile.')
+        return redirect('home:home')  # Add namespace here too

@@ -1,4 +1,8 @@
 <h1 align="center" id="title">AI Chatbot with Django</h1>
+<p align="center">An AI chatbot built with Django and Gemini API</p>
+
+<p align="center">
+  <a href="
 
 <p id="description" align="center">Django | Gemini API | AI Studio</p>
 

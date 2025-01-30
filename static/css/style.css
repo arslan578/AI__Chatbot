@@ -109,3 +109,61 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* Navigation styles */
+.navbar {
+    margin-bottom: 2rem;
+}
+
+/* Form styles */
+.form-container {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Button styles */
+.btn-primary {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.btn-primary:hover {
+    background-color: #45a049;
+    border-color: #45a049;
+}
+
+/* Chat-specific styles */
+.chat-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#chat-container {
+    width: 400px;
+    max-width: 90%;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ... rest of your chat-specific styles ... */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+}

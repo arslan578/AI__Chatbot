@@ -18,3 +18,13 @@ class UserRegistrationForm(UserCreationForm):
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=150)
     password = forms.CharField(widget=forms.PasswordInput)
+
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['first_name', 'last_name', 'email', 'profile_picture', 'bio', 'phone_number']
+        widgets = {
+            'bio': forms.Textarea(attrs={'rows': 4}),
+        }
